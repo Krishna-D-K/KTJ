@@ -40,28 +40,28 @@ const firebaseSignin = ()=>{
 
   return (
     <>
-    <h1>Sign in</h1>
-    <div className="form">
-      <input
-        type="email"
-        required
-        onChange={(e) => {
-          setemail(e.target.value);
-        }}
-        placeholder="Your email..."
-      ></input>
-      <input
-        type="password"
-        required
-        onChange={(e) => {
-          setpassword(e.target.value);
-        }}
-        placeholder="Your password"
-      ></input>
-      <button type="submit" onClick={firebaseSignin}>
-        Submit
-      </button>
+    <br />
+    <br />
+    <br />
+<h1 style={{"textAlign": "center"}}>Sign In</h1>
+<div className="form_wrapper">
+    <div className="form_container">
+      <div className="title_container">
+        <h2>Sign In Form</h2>
+      </div>
+      <div className="row clearfix">
+        <div className>
+            <div className="input_field"> <span><i aria-hidden="true" className="fa fa-envelope" /></span>
+              <input type="email" name="email" placeholder="Email" onChange={(e)=>{setemail(e.target.value);}} required />
+            </div>
+            <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock" /></span>
+              <input type="password" name="password" placeholder="Password" onChange={(e)=>{setpassword(e.target.value);}} required />
+            </div>
+            <input className="button" type="submit" defaultValue="Register" onClick={firebaseSignin} />
+        </div>
+      </div>
     </div>
+</div>
     </>
     
   );
