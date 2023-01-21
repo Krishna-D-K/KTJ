@@ -5,6 +5,7 @@ import './index.css';
 import Form from './Components/Form';
 import SignIn from './Routes/SignIn';
 import App from './App';
+import Portal from './Routes/Portal';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,6 +13,7 @@ root.render(
    <Routes>
     <Route path="/" element={<App />}></Route>
     <Route path='/signin' element={<SignIn />}></Route>
+    <Route path='/portal' element={<Portal />}></Route>
    </Routes>
   </BrowserRouter>
 );

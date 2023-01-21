@@ -7,8 +7,21 @@ import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "fir
 function Form() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+const navigate = useNavigate()
   
-
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      navigate('/portal')
+      // ...
+    } else {
+      // User is signed out
+      // ...
+      navigate('/signin')
+    }
+  });
   
 
   const firebaseAuthentication = () => {
@@ -31,6 +44,7 @@ function Form() {
     <div className="form">
       <input
         type="email"
+        required
         onChange={(e) => {
           setemail(e.target.value);
         }}
@@ -38,6 +52,7 @@ function Form() {
       ></input>
       <input
         type="password"
+        required
         onChange={(e) => {
           setpassword(e.target.value);
         }}
