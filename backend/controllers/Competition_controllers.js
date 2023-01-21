@@ -2,7 +2,7 @@ const Competetions = require("../models/competetions");
 
 const getCompetetions = async (req, res) =>{
     try{
-        const data= await Competetions.find();
+        const data= await Competetions.find({});
         res.status(200).json(data);
     }catch(err){
         throw err;

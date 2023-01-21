@@ -18,8 +18,6 @@ const navigate = useNavigate()
       navigate('/portal')
       // ...
     } else {
-      // User is signed out
-      // ...
     }
   });
   
