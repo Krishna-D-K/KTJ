@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import auth from "../firebase-config.js";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [email, setemail] = useState("");
@@ -40,10 +40,8 @@ const firebaseSignin = ()=>{
 
   return (
     <>
-    <br />
-    <br />
-    <br />
-<h1 style={{"textAlign": "center"}}>Sign In</h1>
+    
+
 <div className="form_wrapper">
     <div className="form_container">
       <div className="title_container">
@@ -58,6 +56,7 @@ const firebaseSignin = ()=>{
               <input type="password" name="password" placeholder="Password" onChange={(e)=>{setpassword(e.target.value);}} required />
             </div>
             <input className="button" type="submit" defaultValue="Register" onClick={firebaseSignin} />
+            <Link to={'/'}>Sign up if you haven't registered yet</Link>
         </div>
       </div>
     </div>

@@ -40,8 +40,17 @@ function Portal() {
   return (
     <div className="portal">
       <div className="portal-navbar">
+
+
+
+
+
+
+
+
+
         <Link to={"/portal"}>Portal</Link>
-        <button onClick={logout}>Log out</button>
+        <button className="popup-navbar-button" onClick={logout}>Log out</button>
         <Popup
           modal
           trigger={<button className="popup-navbar-button"> Add event</button>}

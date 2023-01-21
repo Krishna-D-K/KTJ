@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import auth from '../firebase-config.js'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./FormStyle.css";
 
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
@@ -20,7 +20,6 @@ const navigate = useNavigate()
     } else {
       // User is signed out
       // ...
-      navigate('/signin')
     }
   });
   
@@ -49,7 +48,7 @@ const navigate = useNavigate()
         <h2>Sign Up Form</h2>
       </div>
       <div className="row clearfix">
-        <div className>
+        <div >
             <div className="input_field"> <span><i aria-hidden="true" className="fa fa-envelope" /></span>
               <input type="email" name="email" placeholder="Email" onChange={(e)=>{setemail(e.target.value);}} required />
             </div>
@@ -57,6 +56,7 @@ const navigate = useNavigate()
               <input type="password" name="password" placeholder="Password" onChange={(e)=>{setpassword(e.target.value);}} required />
             </div>
             <input className="button" type="submit" defaultValue="Register" onClick={firebaseAuthentication} />
+            <Link to={'/signin'}>Sign in if you're already registered </Link>
         </div>
       </div>
     </div>
