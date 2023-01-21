@@ -1,11 +1,13 @@
 const express = require('express');
 require('dotenv').config({path: "./passwords.env"});
 const mongoose = require("mongoose");
+const cors = require("cors");
 const app = express();
 const routes = require("./routes");
 const http = require('http');
 const Server = http.createServer(app);
 
+app.use(cors());
 app.use(express.json());
 app.use(routes);
 // app.get("/", (req,res)=>{

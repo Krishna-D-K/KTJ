@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import auth from "../firebase-config.js";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
@@ -10,8 +11,10 @@ import {
 import Card from "../Components/Card.js";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import Apiservice from "../Apiservice.js";
 
 function Portal() {
+  const [data, setData] = useState(null);
   const navigate = useNavigate();
 
   onAuthStateChanged(auth, (user) => {
@@ -29,13 +32,27 @@ function Portal() {
   });
 
   const logout= ()=>{
-    
     signOut(auth).then(()=>{
         navigate('/signin')
     }).catch((error)=>{
         console.log(error)
     })
   }
+
+  const getData = async () =>{
+    console.log("CKICKC");
+    try{
+      const fetched = await axios.get(Apiservice + "/competetions").then((res)=>{
+        setData(res.data);
+      }).then((resData)=>{
+      })
+    }catch(err){
+      console.log(err);
+    }
+  }
+  useEffect(()=>{
+    getData();
+  }, []);
 
   return (
     <div className="portal">
@@ -80,14 +97,9 @@ function Portal() {
         </Popup>
       </div>
       <div className="portal-cards-container">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {data!==null && data.map((val, index)=>{
+          return <Card data = {val} index = {index}/>
+        })}
       </div>
     </div>
   );

@@ -1,10 +1,13 @@
 import React from 'react'
 
-function Card() {
+function Card(props) {
+  const data =props.data;
+  console.log(data);
   return (
     <div className='card'>
-        <div className='card-title'>Title</div>
-        <div className='card-description'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis hendrerit libero. Vestibulum posuere eget ipsum sit amet venenatis. Nulla facilisi.</div>
+        <div className='card-title'>{data.title}</div>
+        <div className='card-description'>{data.details}</div>
+        <div className='card-description'>{data.needed}</div>
     <button className='card-request-button'>Request</button>
     </div>
   )
