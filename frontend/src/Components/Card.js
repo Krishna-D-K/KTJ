@@ -17,7 +17,6 @@ function Card(props) {
     email = user.email;
     // console.log(email);
   }
-  const data = props.data;
   console.log(data._id);
   const createRequest = (_id) => {
     // console.log(_id);
@@ -56,35 +55,30 @@ function Card(props) {
   }
   else{
     return (
-      // <div className="card">
-      //   <div className="card-title">{data.title}</div>
-      //   <hr></hr>
-      //   <div className="card-description">{data.details}</div>
-      //   <div className="card-description">Made by: {data.authorMail}</div>
-      //   <div className="card-description">
-      //     Total Members Needed: {data.membersNeeded}
-      //   </div>
-  
-      //   {email !== data.authorMail && (
-      //     <Button
-      //       variant="primary"
-      //       className="card-request-button"
-      //       disabled
-      //     >
-      //       Request
-      //     </Button>
-      //   )}
-      //   {email === data.authorMail && (
-      //     <Popup modal trigger={<Button>View requests</Button>}>
-      //       <div className="requests-popup">
-      //         <h2>Your requests</h2>
-      //       <Request data={data}/>
-      //       </div>
+      <div className="card">
+        <div className="card-title">{data.title}</div>
+        <hr></hr>
+        <div className="card-description">{data.details}</div>
+        <div className="card-description">Made by: {data.authorMail}</div>
+        <div className="card-description">
+          Total Members Needed: {data.membersNeeded}
+        </div>
+
+          <Popup modal trigger={<Button>View details</Button>}>
+            <div className="requests-popup">
+              <h2>Details</h2> <hr />
+            <Request data={data}/>
+              <h4 style={{"textAlign": "center"}}><strong>Current Members</strong></h4>
+              <div>
+              {data.members.map((val, key)=>{
+                return <ul style={{"textAlign": "center"}}><strong>{val}</strong></ul>
+              })}
+              </div>
+            </div>
             
-      //     </Popup>
-      //   )}
-      // </div>
-      <></>
+          </Popup>
+
+      </div>
     );
   }
   
