@@ -6,13 +6,17 @@ import Request from "./Request";
 import Button from "react-bootstrap/Button";
 import Popup from "reactjs-popup";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavItem } from "@restart/ui/esm/NavItem";
+import { useNavigate } from "react-router";
 
 function Card(props) {
   const data = props.data;
   const [button, setbutton] = useState('Request');
+  const navigate = useNavigate();
   const deleteEvent = async(_id) =>{
     try{
       await axios.delete(Apiservice+"/user/"+ _id ).then((res)=>{
+        navigate("/portal");
         window.location.reload();
       })
     }catch(err){

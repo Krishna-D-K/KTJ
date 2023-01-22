@@ -18,7 +18,6 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONG
 }).then(
     Server.listen(process.env.PORT, ()=>{
         console.log("Listening on port "+ process.env.PORT);
-        console.log(__dirname);
     })
 )
 .catch(console.error);
