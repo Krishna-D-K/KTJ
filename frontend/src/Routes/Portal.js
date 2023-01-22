@@ -3,8 +3,6 @@ import auth from "../firebase-config.js";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
@@ -15,21 +13,11 @@ import Apiservice from "../Apiservice.js";
 
 function Portal() {
   const [data, setData] = useState(null);
+  const [title, setTitle] = useState("");
+  const [email, setEmail] = useState(null);
+  const [details, setDetails] = useState("");
+  const [number, setNumber] = useState('');
   const navigate = useNavigate();
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-
-      // ...
-    } else {
-      // User is signed out
-      // ...
-      navigate("/signin");
-    }
-  });
 
   const logout= ()=>{
     signOut(auth).then(()=>{
@@ -40,7 +28,7 @@ function Portal() {
   }
 
   const getData = async () =>{
-    console.log("CKICKC");
+    // console.log("CKICKC");
     try{
       const fetched = await axios.get(Apiservice + "/competetions").then((res)=>{
         setData(res.data);
@@ -50,23 +38,57 @@ function Portal() {
       console.log(err);
     }
   }
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    // console.log(title, email, details, number);
+    try{
+      const value = axios.post(Apiservice + "/user",{
+        title: title,
+        details: details,
+        authorMail: email,
+        membersNeeded: number
+      }).then((res)=>{
+        console.log(res);
+      }).then((response)=>{
+        setData(null);
+        setDetails("");
+        setEmail(null);
+        setNumber("");
+        setTitle("");
+        setTimeout(()=>{
+          getData();
+        }, 500)
+      })
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   useEffect(()=>{
     getData();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        // console.log(user.email);
+        setEmail(user.email);
+  
+        // ...
+      } else {
+        // User is signed out
+        // ...
+        navigate("/signin");
+      }
+    });
   }, []);
 
   return (
     <div className="portal">
       <div className="portal-navbar">
 
-
-
-
-
-
-
-
-
         <Link to={"/portal"}>Portal</Link>
+        <Link to={"/profile"}>Profile</Link>
         <button className="popup-navbar-button" onClick={logout}>Log out</button>
         <Popup
           modal
@@ -74,29 +96,43 @@ function Portal() {
           position="right center"
         >
           <div className="add-event-form">
+            <form onSubmit={handleSubmit}>
             <input
-              required
               placeholder="Add title..."
               type="text"
+              value={title}
+              onChange={(e)=>setTitle(e.target.value)}
               className="event-title"
+              required
+            ></input>
+            <input
+              value={email}
+              type="text"
+              className="event-title"
+              disabled
             ></input>
             <textarea
-              required
               placeholder="Add details..."
               type="text"
+              value = {details}
+              onChange = {(e)=>setDetails(e.target.value)}
               className="event-details"
+              required
             ></textarea>
             <input
-              required
               placeholder="Add Number of members..."
               type="number"
+              value = {number}
+              onChange = {(e)=>setNumber(e.target.value)}
               className="numberOfMembers"
+              required
             ></input>
-            <button>Submit</button>
+            <button type="submit">Submit</button>
+            </form>
           </div>
         </Popup>
       </div>
-      <div className="portal-cards-container">
+      <div className="cards-container">
         {data!==null && data.map((val, index)=>{
           return <Card data = {val} index = {index}/>
         })}

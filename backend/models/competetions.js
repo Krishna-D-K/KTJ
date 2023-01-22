@@ -9,13 +9,21 @@ const Competetions = new Schema({
     type: String,
     required: true,
   },
-  needed: {
+  authorMail: {
+    type: String,
+    required: true,
+  },
+  membersNeeded: {
     type: Number,
     required: true,
+  },
+  requests: {
+    type: Array,
+    required: false,
   },
   members: {
     type: Array,
     required: false,
   },
-});
+}, {timestamps: true});
 module.exports = mongoose.model('Competetions', Competetions);
