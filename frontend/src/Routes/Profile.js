@@ -11,6 +11,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 function Profile() {
   const navigate = useNavigate();
 
+
   const logout = () => {
     signOut(auth)
       .then(() => {
@@ -42,12 +43,7 @@ function Profile() {
     }
   };
   useEffect(() => {
-    const auth = getAuth();
-  user = auth.currentUser;
-  if(user){
-    email = user.email;
-    console.log(email);
-  }
+    
     getData();
   }, []);
 
@@ -57,7 +53,7 @@ function Profile() {
         <div className="username">
           <strong>Current user:</strong> {email}
         </div>
-        <Button variant="danger" onClick={logout}>
+        <Button variant="secondary" onClick={logout}>
           Logout
         </Button>
       </div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import Apiservice from "../Apiservice";
 import { getAuth } from "firebase/auth";
 import Request from "./Request";
@@ -7,8 +7,11 @@ import Button from "react-bootstrap/Button";
 import Popup from "reactjs-popup";
 
 function Card(props) {
+  const data = props.data;
+  const [button, setbutton] = useState('Request');
   const auth = getAuth();
   const user = auth.currentUser;
+  let state= true; 
   var email;
   if (user) {
     email = user.email;

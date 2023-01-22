@@ -102,7 +102,7 @@ function Portal() {
               <Nav.Link>
                 <Link to={"/profile"}>Profile</Link>
               </Nav.Link>
-              <Nav.Link onClick={logout}>logout</Nav.Link>
+              <Nav.Link onClick={logout}>Logout</Nav.Link>
               <Popup
                 modal
                 trigger={<Nav.Link>Add event</Nav.Link>}
@@ -146,7 +146,7 @@ function Portal() {
                       />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" onClick={handleSubmit}>
                       Submit
                     </Button>
                   </Form>
