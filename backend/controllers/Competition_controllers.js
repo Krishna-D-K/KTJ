@@ -23,7 +23,7 @@ const createCompetetion = async (req, res)=>{
 
 //delete an existing competetion
 const deleteCompetetion = async (req, res) =>{
-    const { id }= req.body;
+    const { id }= req.params;
     try{
         const data = await Competetions.findOneAndDelete({_id: id});
         res.status(200).json(data);
@@ -59,9 +59,7 @@ const deleteRequest = async (req, res) =>{
     const { id }= req.params;
     try{
         const deleteRequest = await Competetions.find({_id: id}).then((docs, err)=>{
-            console.log(docs);
             const index = docs[0].requests.indexOf(req.body.members);
-            console.log(index);
             docs[0].requests.splice(index, 1);
             docs[0].save();
         });
@@ -74,12 +72,9 @@ const deleteRequest = async (req, res) =>{
 // confirm the request and add the applicant as a member of the team
 const addMember = async (req, res)=>{
     const { id } = req.params;
-    console.log(req.body);
     try{
         const removeCurrentRequest = await Competetions.find({_id: id}).then((docs, err)=>{
-            console.log(docs);
             const index = docs[0].requests.indexOf(req.body.members);
-            console.log(index);
             docs[0].requests.splice(index, 1);
             docs[0].members.push(req.body.members);
             docs[0].save();
