@@ -1,5 +1,6 @@
 const Competetions = require("../models/competetions");
 
+// get all the competetions that have been created
 const getCompetetions = async (req, res) =>{
     try{
         const data= await Competetions.find({});
@@ -9,6 +10,7 @@ const getCompetetions = async (req, res) =>{
     }
 }
 
+// create a new competetion
 const createCompetetion = async (req, res)=>{
     try{
         const data =  await Competetions.create(req.body);
@@ -19,6 +21,7 @@ const createCompetetion = async (req, res)=>{
     
 }
 
+//delete an existing competetion
 const deleteCompetetion = async (req, res) =>{
     const { id }= req.body;
     try{
@@ -29,6 +32,7 @@ const deleteCompetetion = async (req, res) =>{
     }
 }
 
+// updating a competetion that has been already created
 const updateCompetetions = async (req, res) =>{
     const { id }= req.body;
     try{
@@ -39,14 +43,51 @@ const updateCompetetions = async (req, res) =>{
     }
 }
 
+// create a new request for the competetion
 const addRequest = async (req, res) =>{
     const { id }= req.params;
     try{
-        const data = await Competetions.findOneAndUpdate({_id: id}, {...req.body});
+        const data = await Competetions.findOneAndUpdate({_id: id}, {$push: {requests: req.body.requests}});
         res.status(200).json(data);
     }catch(err){
         throw err;
     }
 }
 
-module.exports = {getCompetetions ,createCompetetion, deleteCompetetion, updateCompetetions ,addRequest};
+// delete the request for a certain applicant
+const deleteRequest = async (req, res) =>{
+    const { id }= req.params;
+    try{
+        const deleteRequest = await Competetions.find({_id: id}).then((docs, err)=>{
+            console.log(docs);
+            const index = docs[0].requests.indexOf(req.body.members);
+            console.log(index);
+            docs[0].requests.splice(index, 1);
+            docs[0].save();
+        });
+        res.status(200).json(deleteRequest);
+    }catch(err){
+        throw err;
+    }
+}
+
+// confirm the request and add the applicant as a member of the team
+const addMember = async (req, res)=>{
+    const { id } = req.params;
+    console.log(req.body);
+    try{
+        const removeCurrentRequest = await Competetions.find({_id: id}).then((docs, err)=>{
+            console.log(docs);
+            const index = docs[0].requests.indexOf(req.body.members);
+            console.log(index);
+            docs[0].requests.splice(index, 1);
+            docs[0].members.push(req.body.members);
+            docs[0].save();
+        });
+        res.status(200).json(removeCurrentRequest);
+    }catch(err){
+        throw err;
+    }
+}
+
+module.exports = {getCompetetions ,createCompetetion, deleteCompetetion, updateCompetetions, addRequest, addMember, deleteRequest};
