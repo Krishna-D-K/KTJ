@@ -10,6 +10,13 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 
 function Profile() {
   const navigate = useNavigate();
+  var user, email;
+  const auth = getAuth();
+  user = auth.currentUser;
+  if(user){
+    email = user.email;
+
+  }
 
 
   const logout = () => {
@@ -23,13 +30,6 @@ function Profile() {
   };
 
   const [data, setData] = useState(null);
-  var user, email;
-  const auth = getAuth();
-  user = auth.currentUser;
-  if(user){
-    email = user.email;
-
-  }
   const getData = async () => {
     try {
       await axios
