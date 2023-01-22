@@ -37,7 +37,19 @@ function Card(props) {
     try {
       axios.patch(Apiservice + "/user/" + _id, {
         requests: email,
-      });
+      }).then((res)=>{
+        console.log(res.data);
+        if(res.data==="AlreadyThere"){
+          setbutton("Already Requested");
+        }
+        else if(res.data==="Filled"){
+          setbutton("No more requests.");
+        }
+        else if(res.data==="Done"){
+          setbutton("Requested");
+        }
+
+      }).then((resData)=>{console.log(resData)});
     } catch (err) {
       console.log(err);
     }
@@ -59,7 +71,7 @@ function Card(props) {
             className="card-request-button"
             onClick={() => {
               createRequest(data._id);
-              setbutton("Requested");
+
               
             }}
             disabled={(button==="Requested")}

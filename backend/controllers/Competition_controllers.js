@@ -47,10 +47,23 @@ const updateCompetetions = async (req, res) =>{
 const addRequest = async (req, res) =>{
     const { id }= req.params;
     try{
-        const data = await Competetions.findOneAndUpdate({_id: id}, {$push: {requests: req.body.requests}});
-        res.status(200).json(data);
+        await Competetions.find({_id: id}).then((docs, err)=>{
+            if(docs[0].members.length< docs[0].membersNeeded){
+                if(docs[0].requests.includes(req.body.requests)){
+                    res.status(201).json("AlreadyThere");
+                }
+                else{
+                    docs[0].requests.push(req.body.requests);
+                    docs[0].save();
+                    res.status(200).json("Done");
+                }
+            }
+            else{
+                res.status(201).json("Filled");
+            }
+        }) 
     }catch(err){
-        throw err;
+        throw(err);
     }
 }
 
