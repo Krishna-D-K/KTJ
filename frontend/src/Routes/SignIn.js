@@ -48,7 +48,7 @@ const firebaseSignin = ()=>{
         <h2>Sign In Form</h2>
       </div>
       <div className="row clearfix">
-        <div className>
+        <div >
             <div className="input_field"> <span><i aria-hidden="true" className="fa fa-envelope" /></span>
               <input type="email" name="email" placeholder="Email" onChange={(e)=>{setemail(e.target.value);}} required />
             </div>
@@ -56,7 +56,7 @@ const firebaseSignin = ()=>{
               <input type="password" name="password" placeholder="Password" onChange={(e)=>{setpassword(e.target.value);}} required />
             </div>
             <input className="button" type="submit" defaultValue="Register" onClick={firebaseSignin} />
-            <Link to={'/'}>Sign up if you haven't registered yet</Link>
+            <Link style={{fontSize: '0.7rem'}} to={'/'}>Sign up if you haven't registered yet</Link>
         </div>
       </div>
     </div>

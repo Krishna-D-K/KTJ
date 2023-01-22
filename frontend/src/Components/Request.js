@@ -1,22 +1,24 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
 
 function Request(props) {
-    const data = props.data;
-    console.log(data.requests);
+  const data = props.data;
+  console.log(data.requests);
+  return data.requests.map((val, index) => {
     return (
-        data.requests.map((val, index) => {
-            return(
-                <>
-                    <div className="request">
-                <div className="request-username">{val}</div>
-                <button className="request-username-button">accept</button>
-                <button className="request-username-button">reject</button>
-            </div>
-                </>
-            )
-            
-        })
+      <>
+        <div className="request">
+          <div className="request-username"><strong>{val} </strong> wants to join</div>
+          <Button variant="primary" type="submit">
+                      Accept
+                    </Button>
+                    <Button variant="secondary" type="submit">
+                      Reject
+                    </Button>
+        </div>
+      </>
     );
+  });
 }
 
 export default Request;

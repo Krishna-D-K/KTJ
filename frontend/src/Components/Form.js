@@ -54,7 +54,7 @@ const navigate = useNavigate()
               <input type="password" name="password" placeholder="Password" onChange={(e)=>{setpassword(e.target.value);}} required />
             </div>
             <input className="button" type="submit" defaultValue="Register" onClick={firebaseAuthentication} />
-            <Link to={'/signin'}>Sign in if you're already registered </Link>
+            <Link style={{fontSize: '0.7rem'}} to={'/signin'}>Sign in if you're already registered </Link>
         </div>
       </div>
     </div>
