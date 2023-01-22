@@ -156,6 +156,7 @@ function Portal() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <h1 style={{"textAlign": "center"}}>All Events</h1>
       <div className="cards-container">
         {data !== null &&
           data.map((val, index) => {
