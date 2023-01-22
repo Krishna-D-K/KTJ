@@ -10,12 +10,10 @@ const Server = http.createServer(app);
 app.use(cors());
 app.use(express.json());
 app.use(routes);
-// app.get("/", (req,res)=>{
-//     res.send("HELLO");
-// })
+
 mongoose.set("strictQuery", false);
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.dtf6756.mongodb.net/?retryWrites=true&w=majority`,{
-        useNewUrlParser: true, // default recommended options
+        useNewUrlParser: true, 
         useUnifiedTopology: true,
 }).then(
     Server.listen(process.env.PORT, ()=>{

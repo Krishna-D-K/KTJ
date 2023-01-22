@@ -23,10 +23,15 @@ function Profile() {
 
   const [data, setData] = useState(null);
   var user, email;
-
+  const auth = getAuth();
+  user = auth.currentUser;
+  if(user){
+    email = user.email;
+    console.log(email);
+  }
   const getData = async () => {
     try {
-      const fetched = await axios
+      await axios
         .get(Apiservice + "/competetions")
         .then((res) => {
           setData(res.data);
@@ -38,11 +43,11 @@ function Profile() {
   };
   useEffect(() => {
     const auth = getAuth();
-    user = auth.currentUser;
-    if (user) {
-      email = user.email;
-      // console.log(email);
-    }
+  user = auth.currentUser;
+  if(user){
+    email = user.email;
+    console.log(email);
+  }
     getData();
   }, []);
 

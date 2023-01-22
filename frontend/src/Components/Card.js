@@ -15,7 +15,7 @@ function Card(props) {
     // console.log(email);
   }
   const data = props.data;
-  // console.log(data._id);
+  console.log(data._id);
   const createRequest = (_id) => {
     // console.log(_id);
     try {
@@ -26,39 +26,65 @@ function Card(props) {
       console.log(err);
     }
   };
-
-  return (
-    <div className="card">
-      <div className="card-title">{data.title}</div>
-      <hr></hr>
-      <div className="card-description">{data.details}</div>
-      <div className="card-description">Made by: {data.authorMail}</div>
-      <div className="card-description">
-        Total Members Needed: {data.membersNeeded}
+  if(email !== data.authorMail){
+    return (
+      <div className="card">
+        <div className="card-title">{data.title}</div>
+        <hr></hr>
+        <div className="card-description">{data.details}</div>
+        <div className="card-description">Made by: {data.authorMail}</div>
+        <div className="card-description">
+          Total Members Needed: {data.membersNeeded}
+        </div>
+  
+        
+          <Button
+            variant="primary"
+            className="card-request-button"
+            onClick={() => {
+              createRequest(data._id);
+              props.refresh();
+            }}
+          >
+            Request
+          </Button>
       </div>
-
-      {email !== data.authorMail && (
-        <Button
-          variant="primary"
-          className="card-request-button"
-          onClick={() => {
-            createRequest(data._id);
-          }}
-        >
-          Request
-        </Button>
-      )}
-      {email === data.authorMail && (
-        <Popup modal trigger={<Button>View requests</Button>}>
-          <div className="requests-popup">
-            <h2>Your requests</h2>
-          <Request data={data}/>
-          </div>
-          
-        </Popup>
-      )}
-    </div>
-  );
+    );
+  }
+  else{
+    return (
+      // <div className="card">
+      //   <div className="card-title">{data.title}</div>
+      //   <hr></hr>
+      //   <div className="card-description">{data.details}</div>
+      //   <div className="card-description">Made by: {data.authorMail}</div>
+      //   <div className="card-description">
+      //     Total Members Needed: {data.membersNeeded}
+      //   </div>
+  
+      //   {email !== data.authorMail && (
+      //     <Button
+      //       variant="primary"
+      //       className="card-request-button"
+      //       disabled
+      //     >
+      //       Request
+      //     </Button>
+      //   )}
+      //   {email === data.authorMail && (
+      //     <Popup modal trigger={<Button>View requests</Button>}>
+      //       <div className="requests-popup">
+      //         <h2>Your requests</h2>
+      //       <Request data={data}/>
+      //       </div>
+            
+      //     </Popup>
+      //   )}
+      // </div>
+      <></>
+    );
+  }
+  
 }
 
 export default Card;

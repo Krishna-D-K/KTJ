@@ -23,6 +23,7 @@ function Portal() {
   const [details, setDetails] = useState("");
   const [number, setNumber] = useState("");
   const navigate = useNavigate();
+  let count = 0;
 
   const logout = () => {
     signOut(auth)
@@ -36,42 +37,37 @@ function Portal() {
 
   const getData = async () => {
     // console.log("CKICKC");
-    try {
-      const fetched = await axios
-        .get(Apiservice + "/competetions")
-        .then((res) => {
-          setData(res.data);
-        })
-        .then((resData) => {});
-    } catch (err) {
+    try{
+      await axios.get(Apiservice + "/competetions").then((res)=>{
+        setData(res.data);
+      }).then((resData)=>{
+      })
+    }catch(err){
       console.log(err);
     }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(title, email, details, number);
-    try {
-      const value = axios
-        .post(Apiservice + "/user", {
-          title: title,
-          details: details,
-          authorMail: email,
-          membersNeeded: number,
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .then((response) => {
-          setData(null);
-          setDetails("");
-          setEmail(null);
-          setNumber("");
-          setTitle("");
-          setTimeout(() => {
-            getData();
-          }, 500);
-        });
-    } catch (err) {
+    try{
+      axios.post(Apiservice + "/user",{
+        title: title,
+        details: details,
+        authorMail: email,
+        membersNeeded: number
+      }).then((res)=>{
+        console.log(res);
+      }).then((response)=>{
+        setData(null);
+        setDetails("");
+        setEmail(null);
+        setNumber("");
+        setTitle("");
+        setTimeout(()=>{
+          getData();
+        }, 500)
+      })
+    }catch(err){
       console.log(err);
     }
   };
@@ -82,8 +78,6 @@ function Portal() {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        // console.log(user.email);
         setEmail(user.email);
 
         // ...
@@ -93,7 +87,7 @@ function Portal() {
         navigate("/signin");
       }
     });
-  }, []);
+  }, [, count]);
 
   return (
     <div className="portal">
@@ -165,7 +159,7 @@ function Portal() {
       <div className="cards-container">
         {data !== null &&
           data.map((val, index) => {
-            return <Card data={val} index={index} />;
+            return <Card data={val} index={index} refresh = {()=>{count = count+1; console.log("refreshed", count)}}/>;
           })}
       </div>
     </div>
