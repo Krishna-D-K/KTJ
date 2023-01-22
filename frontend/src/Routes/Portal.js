@@ -56,7 +56,7 @@ function Portal() {
         authorMail: email,
         membersNeeded: number
       }).then((res)=>{
-        console.log(res);
+
       }).then((response)=>{
         setData(null);
         setDetails("");
@@ -102,7 +102,6 @@ function Portal() {
               <Nav.Link>
                 <Link to={"/profile"}>Profile</Link>
               </Nav.Link>
-              <Nav.Link onClick={logout}>Logout</Nav.Link>
               <Popup
                 modal
                 trigger={<Nav.Link>Add event</Nav.Link>}
@@ -152,6 +151,7 @@ function Portal() {
                   </Form>
                 </div>
               </Popup>
+              <Nav.Link onClick={logout}>Logout</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

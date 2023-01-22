@@ -21,7 +21,7 @@ function Request(props) {
             navigate("/portal");
         })
         .then((resData) => {});
-      console.log(member);
+
     } catch (err) {
       console.log(err);
     }
@@ -37,7 +37,7 @@ function Request(props) {
             setMessage("Request Rejected Successfully!!")
             navigate("/portal")})
         .then((resData) => {});
-      console.log(member);
+
     } catch (err) {
       console.log(err);
     }
