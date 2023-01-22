@@ -41,6 +41,7 @@ h1 {
   flex-direction: row;
   font-size: 1.4rem;
   font-weight: bold;
+  margin-bottom: 0;
 }
 
 .card-title button{
@@ -117,7 +118,7 @@ nav .container a:hover{
 .username{
   font-size: 1.3rem;
   width: fit-content;
-  margin-left: 50px;
+  margin-left: 1.5rem;
   padding: 20px;
 }
 

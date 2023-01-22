@@ -28,7 +28,7 @@ function Profile() {
   user = auth.currentUser;
   if(user){
     email = user.email;
-    console.log(email);
+
   }
   const getData = async () => {
     try {
@@ -50,10 +50,12 @@ function Profile() {
   return (
     <div className="profile">
       <div className="profile-flex">
-        <div className="username">
+        <div className="username" >
           <strong>Current user:</strong> {email}
         </div>
-        <Button variant="secondary" onClick={logout}>
+      <h2 style={{"margin": "auto"}}>Your Profile</h2>
+
+        <Button variant="secondary" onClick={logout} style={{"marginLeft": "auto", "marginRight": "1.5rem"}}>
           Logout
         </Button>
       </div>
