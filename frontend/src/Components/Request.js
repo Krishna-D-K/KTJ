@@ -55,13 +55,6 @@ function Request(props) {
                       Reject
                     </Button>
         </div>
-        <Popup modal trigger={message}>
-            <div className="requests-popup">
-              <h2>Your requests</h2>
-            <Request data={data}/>
-            </div>
-            
-          </Popup>
       </>
     );
   });
